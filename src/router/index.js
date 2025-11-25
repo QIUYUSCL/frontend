@@ -39,6 +39,11 @@ const routes = [
         component: () => import('../views/Login.vue')
     },
     {
+        path: '/register',  // ✅ 新增注册路由
+        name: 'Register',
+        component: () => import('../views/Register.vue')
+    },
+    {
         path: '/personal',
         name: 'PersonalCenter',
         component: PersonalCenter

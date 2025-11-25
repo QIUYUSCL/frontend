@@ -243,6 +243,41 @@ export const mockApi = {
             return mockResponse(null, false);
         },
 
+        register(userData) {
+            const { studentId, realName, password, college, major, grade } = userData;
+
+            // 检查学工号是否已存在
+            const existingUser = mockData.users.find(u => u.studentId === studentId);
+            if (existingUser) {
+                return mockResponse({ message: '该学工号已注册' }, false);
+            }
+
+            // 生成新用户ID
+            const newUserId = Math.max(...mockData.users.map(u => u.userId)) + 1;
+
+            // 创建新用户
+            const newUser = {
+                userId: newUserId,
+                studentId,
+                realName,
+                creditScore: 80, // 新用户初始信用分
+                college,
+                major,
+                grade,
+                defaultAddress: null
+            };
+
+            // 添加到用户列表
+            mockData.users.push(newUser);
+
+            // 模拟注册成功后自动登录
+            return mockResponse({
+                token: 'mock-jwt-token-' + newUserId,
+                userId: newUserId,
+                userInfo: newUser
+            });
+        },
+
         getCurrentUser() {
             const currentUser = generateMockData.getCurrentUser();
             return mockResponse(currentUser);

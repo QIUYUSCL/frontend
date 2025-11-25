@@ -37,6 +37,13 @@ export const authApi = {
         return request.post('/auth/login', credentials);
     },
 
+    register(userData) {
+        if (isMockMode) {
+            return mockApi.auth.register(userData);
+        }
+        return request.post('/auth/register', userData);
+    },
+
     // 获取当前用户信息
     getCurrentUser() {
         if (isMockMode) {
