@@ -28,7 +28,16 @@
               <el-button v-if="!isOwnBook" type="primary" size="large" :icon="ShoppingCart" @click="handleBuy" :disabled="book.status !== '在售'" >
                 {{ book.status === '在售' ? '立即购买' : '已售出' }}
               </el-button>
-              <el-button v-if="!isOwnBook" type="default" size="large" :icon="Star" @click="handleFavorite" > 收藏 </el-button>
+              <el-button
+                  v-if="!isOwnBook"
+                  type="default"
+                  size="large"
+                  :icon="Star"
+                  @click="handleFavorite"
+                  :loading="favoriting"
+              >
+                {{ isFavorited ? '已收藏' : '收藏' }}
+              </el-button>
               <template v-if="isOwnBook">
                 <el-button type="warning" size="large" @click="handleEdit"> 编辑 </el-button>
                 <el-button type="danger" size="large" @click="handleDelete"> 下架 </el-button>
@@ -60,8 +69,10 @@ import { ShoppingCart, Star } from '@element-plus/icons-vue'
 import BookCard from '../components/BookCard.vue'
 import { bookApi } from '../api/book'
 import { recommendationApi } from '../api/recommendation'
+import { mockData } from '../mock/data'
 
 
+const isFavorited = ref(false)
 const route = useRoute()
 const router = useRouter()
 
@@ -79,6 +90,7 @@ const isOwnBook = computed(() => {
 // 加载图书详情
 const loadBookDetail = async () => {
   const bookId = route.params.id
+  await loadFavoriteStatus()
   if (!bookId) {
     ElMessage.error('图书ID不存在')
     await router.push('/')
@@ -91,10 +103,17 @@ const loadBookDetail = async () => {
     if (res.code === 200) {
       book.value = res.data
 
-      console.log('book.cover 的值:', book.value.cover)
 
-      // 加载卖家信息（简化处理）
-      sellerInfo.value = { realName: '测试卖家', creditScore: 95 }
+      // 加载卖家信息
+      const sellerUser = mockData.users.find(u => u.userId === book.value.sellerId)
+      if (sellerUser) {
+        sellerInfo.value = {
+          realName: sellerUser.realName,
+          creditScore: sellerUser.creditScore
+        }
+      } else {
+        sellerInfo.value = { realName: '匿名用户', creditScore: 0 }
+      }
 
       // 加载相关推荐
       await loadRelatedBooks(bookId)
@@ -103,7 +122,7 @@ const loadBookDetail = async () => {
     }
   } catch (error) {
     ElMessage.error('加载图书详情失败')
-    router.push('/')
+    await router.push('/')
   } finally {
     loading.value = false
   }
@@ -122,36 +141,10 @@ const loadRelatedBooks = async (bookId) => {
   }
 }
 
-// 购买处理
-const handleBuy = async () => {
-  try {
-    await ElMessageBox.confirm(
-        `确认购买《${book.value.title}》？价格：¥${book.value.price}`,
-        '购买确认',
-        {
-          confirmButtonText: '确认购买',
-          cancelButtonText: '取消',
-          type: 'info'
-        }
-    )
-
-    // 使用统一的API调用方式
-    const res = await bookApi.purchaseBook({
-      bookId: book.value.bookId,
-      buyerId: currentUserId
-    })
-
-    if (res.code === 200) {
-      ElMessage.success('下单成功！请查看订单详情')
-      router.push('/orders')
-    } else {
-      throw new Error(res.message)
-    }
-  } catch (error) {
-    if (error !== 'cancel') {
-      ElMessage.error(error.message || '购买失败')
-    }
-  }
+// 购买处理 - 跳转到确认页面
+const handleBuy = () => {
+  // 直接跳转到订单确认页面
+  router.push(`/order/confirm/${book.value.bookId}`)
 }
 
 // 删除处理 - 修改为使用bookApi
@@ -183,13 +176,38 @@ const handleDelete = async () => {
   }
 }
 
-// 收藏处理
+// 加载收藏状态
+const loadFavoriteStatus = async () => {
+  try {
+    const res = await bookApi.checkFavorite(book.value.bookId)
+    if (res.code === 200) {
+      isFavorited.value = res.data.isFavorite
+    }
+  } catch (error) {
+    console.error('加载收藏状态失败:', error)
+  }
+}
+
+// 收藏处理 - 切换收藏状态
 const handleFavorite = async () => {
   try {
-    // 调用收藏API（简化）
-    ElMessage.success('收藏成功！')
+    if (isFavorited.value) {
+      // 取消收藏
+      const res = await bookApi.removeFavorite(book.value.bookId)
+      if (res.code === 200) {
+        isFavorited.value = false
+        ElMessage.success('已取消收藏')
+      }
+    } else {
+      // 添加收藏
+      const res = await bookApi.addFavorite(book.value.bookId)
+      if (res.code === 200) {
+        isFavorited.value = true
+        ElMessage.success('收藏成功！')
+      }
+    }
   } catch (error) {
-    ElMessage.error('收藏失败')
+    ElMessage.error('操作失败：' + (error.message || '未知错误'))
   }
 }
 
@@ -197,7 +215,6 @@ const handleFavorite = async () => {
 const handleEdit = () => {
   router.push(`/book/edit/${book.value.bookId}`)
 }
-
 
 
 // 格式化日期

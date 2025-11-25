@@ -68,11 +68,12 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { authApi } from '@/api/auth'
 import { User, Lock } from '@element-plus/icons-vue'
+
 
 
 const router = useRouter()

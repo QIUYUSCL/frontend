@@ -21,10 +21,10 @@
             <el-avatar :icon="UserFilled" />
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人中心</el-dropdown-item>
-                <el-dropdown-item>我的订单</el-dropdown-item>
-                <el-dropdown-item>信用积分</el-dropdown-item>
-                <el-dropdown-item divided>退出登录</el-dropdown-item>
+                <el-dropdown-item @click="$router.push('/personal')">个人中心</el-dropdown-item>
+                <el-dropdown-item @click="$router.push('/my-orders')">我的订单</el-dropdown-item>
+                <el-dropdown-item @click="$router.push('/credit')">信用积分</el-dropdown-item>
+                <el-dropdown-item divided @click="handleLogout">退出登录</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -54,7 +54,7 @@
               <el-icon><Collection /></el-icon>
               <span>我的书架</span>
             </el-menu-item>
-            <el-menu-item index="/orders">
+            <el-menu-item index="/my-orders">
               <el-icon><List /></el-icon>
               <span>订单管理</span>
             </el-menu-item>
@@ -82,6 +82,13 @@ const handleSearch = () => {
     router.push(`/search?keyword=${encodeURIComponent(searchKeyword.value)}`)
   }
 }
+
+const handleLogout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('userId')
+  router.push('/login')
+}
+
 </script>
 
 <style>

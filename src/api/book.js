@@ -96,5 +96,50 @@ export const bookApi = {
             });
         }
         return request.post('/orders', orderInfo);
-    }
+    },
+    // 新增：更新图书
+    updateBook(bookData) {
+        if (isMockMode) {
+            return mockApi.book.updateBook(bookData);
+        }
+        return request.put(`/books/${bookData.bookId}`, bookData);
+    },
+    // 获取我的收藏
+    getFavoriteBooks() {
+        if (isMockMode) {
+            return mockApi.book.getFavoriteBooks();
+        }
+        return request.get('/books/favorites');
+    },
+
+    // 收藏图书
+    addFavorite(bookId) {
+        if (isMockMode) {
+            return mockApi.book.addFavorite(bookId);
+        }
+        return request.post(`/books/${bookId}/favorite`);
+    },
+
+    // 取消收藏
+    removeFavorite(bookId) {
+        if (isMockMode) {
+            return mockApi.book.removeFavorite(bookId);
+        }
+        return request.delete(`/books/${bookId}/favorite`);
+    },
+
+    // 检查收藏状态
+    checkFavorite(bookId) {
+        if (isMockMode) {
+            return mockApi.book.checkFavorite(bookId);
+        }
+        return request.get(`/books/${bookId}/favorite/check`);
+    },
+    // 根据状态获取我的图书
+    getMyBooksByStatus(status) {
+        if (isMockMode) {
+            return mockApi.book.getMyBooksByStatus(status);
+        }
+        return request.get('/books/my-books/status', { params: { status } });
+    },
 };
