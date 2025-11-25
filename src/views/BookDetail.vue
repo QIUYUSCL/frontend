@@ -6,7 +6,7 @@
         <el-row :gutter="20">
           <el-col :span="8">
             <img
-                :src="book.cover ? `/static/covers/${book.cover}` : ''"
+                :src="book.cover ? book.cover.replace('public/', '/') : ''"
                 class="book-cover-large"
                 alt="图书封面"
                 />
@@ -81,7 +81,7 @@ const loadBookDetail = async () => {
   const bookId = route.params.id
   if (!bookId) {
     ElMessage.error('图书ID不存在')
-    router.push('/')
+    await router.push('/')
     return
   }
 
@@ -97,7 +97,7 @@ const loadBookDetail = async () => {
       sellerInfo.value = { realName: '测试卖家', creditScore: 95 }
 
       // 加载相关推荐
-      loadRelatedBooks(bookId)
+      await loadRelatedBooks(bookId)
     } else {
       throw new Error(res.message)
     }
@@ -115,6 +115,7 @@ const loadRelatedBooks = async (bookId) => {
     const res = await recommendationApi.getRelatedRecommendation(bookId, 6)
     if (res.code === 200) {
       relatedBooks.value = res.data
+      console.log('相关推荐封面路径:', relatedBooks.value.map(b => b.cover))
     }
   } catch (error) {
     console.error('加载相关推荐失败:', error)

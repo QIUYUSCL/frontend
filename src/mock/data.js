@@ -47,7 +47,7 @@ export const mockData = {
             status: "在售",
             viewCount: 328,
             createTime: "2025-09-15T10:30:00",
-            cover: "src/mock/images/5abb54f5N4d11464e.jpg"
+            cover: "public/images/5abb54f5N4d11464e.jpg"
         },
         {
             bookId: 2002,
@@ -63,7 +63,7 @@ export const mockData = {
             status: "在售",
             viewCount: 256,
             createTime: "2025-10-10T14:20:00",
-            cover: "src/mock/images/9787302147510.jpg"
+            cover: "public/images/9787302147510.jpg"
         },
         {
             bookId: 2003,
@@ -79,7 +79,7 @@ export const mockData = {
             status: "在售",
             viewCount: 412,
             createTime: "2025-10-20T09:15:00",
-            cover: "src/mock/images/4a32bd868be2b935.jpg"
+            cover: "public/images/4a32bd868be2b935.jpg"
         },
         {
             bookId: 2004,
@@ -95,7 +95,7 @@ export const mockData = {
             status: "在售",
             viewCount: 289,
             createTime: "2025-11-01T16:45:00",
-            cover: "https://img3.doubanio.com/view/subject/l/public/s29749679.jpg"
+            cover: "public/images/xZAWfwpTFGQGgkLR5MXm1A.jpg"
         },
         {
             bookId: 2005,
@@ -111,7 +111,7 @@ export const mockData = {
             status: "在售",
             viewCount: 178,
             createTime: "2025-09-28T11:30:00",
-            cover: "https://img1.doubanio.com/view/subject/l/public/s33457828.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-14-27.jpg"
         },
         {
             bookId: 2006,
@@ -127,7 +127,7 @@ export const mockData = {
             status: "在售",
             viewCount: 267,
             createTime: "2025-10-05T13:20:00",
-            cover: "https://img3.doubanio.com/view/subject/l/public/s33776327.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-15-41.jpg"
         },
         {
             bookId: 2007,
@@ -143,7 +143,7 @@ export const mockData = {
             status: "在售",
             viewCount: 198,
             createTime: "2025-10-15T15:10:00",
-            cover: "https://img3.doubanio.com/view/subject/l/public/s33665382.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-16-13.jpg"
         },
         {
             bookId: 2008,
@@ -159,7 +159,7 @@ export const mockData = {
             status: "在售",
             viewCount: 156,
             createTime: "2025-10-25T10:50:00",
-            cover: "https://img1.doubanio.com/view/subject/l/public/s33667695.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-16-43.jpg"
         },
         {
             bookId: 2009,
@@ -175,7 +175,7 @@ export const mockData = {
             status: "在售",
             viewCount: 456,
             createTime: "2025-11-05T09:30:00",
-            cover: "https://img3.doubanio.com/view/subject/l/public/s33260456.jpg"
+            cover: "public/images/v2-0769c039eb86a19e83fb17fd25485d77_r.jpg"
         },
         {
             bookId: 2013,
@@ -191,7 +191,7 @@ export const mockData = {
             status: "在售",
             viewCount: 523,
             createTime: "2025-11-08T13:30:00",
-            cover: "src/mock/images/05d1646fcc28420b.jpg"
+            cover: "public/images/05d1646fcc28420b.jpg"
         },
         {
             bookId: 2011,
@@ -207,7 +207,7 @@ export const mockData = {
             status: "在售",
             viewCount: 289,
             createTime: "2025-10-08T11:15:00",
-            cover: "https://img1.doubanio.com/view/subject/l/public/s29443807.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-17-12.jpg"
         },
         {
             bookId: 2014,
@@ -223,7 +223,7 @@ export const mockData = {
             status: "在售",
             viewCount: 234,
             createTime: "2025-10-18T11:45:00",
-            cover: "https://img3.doubanio.com/view/subject/l/public/s33421973.jpg"
+            cover: "public/images/PixPin_2025-11-25_12-17-49.jpg"
         }
     ],
 
@@ -234,28 +234,28 @@ export const mockData = {
                 bookId: 2001,
                 title: "算法导论（原书第3版）",
                 price: 89.00,
-                cover: "src/mock/images/5abb54f5N4d11464e.jpg",
+                cover: "public/images/5abb54f5N4d11464e.jpg",
                 reasons: ["您专业核心教材", "同院系学长最爱买"]
             },
             {
                 bookId: 2002,
                 title: "数据结构（C语言版）",
                 price: 22.00,
-                cover: "src/mock/images/9787302147510.jpg",
+                cover: "public/images/9787302147510.jpg",
                 reasons: ["本学期《数据结构》课程指定教材"]
             },
             {
                 bookId: 2013,
                 title: "机器学习",
                 price: 68.00,
-                cover: "src/mock/images/05d1646fcc28420b.jpg",
+                cover: "public/images/05d1646fcc28420b.jpg",
                 reasons: ["您浏览过AI相关书籍，强力推荐西瓜书"]
             },
             {
                 bookId: 2009,
                 title: "Python编程：从入门到实践",
                 price: 58.00,
-                cover: "src/mock/images/v2-0769c039eb86a19e83fb17fd25485d77_r.jpg",
+                cover: "public/images/v2-0769c039eb86a19e83fb17fd25485d77_r.jpg",
                 reasons: ["Python最热入门书，适合零基础"]
             }
         ],
@@ -264,21 +264,21 @@ export const mockData = {
                 bookId: 2013,
                 title: "机器学习",
                 price: 68.00,
-                cover: "src/mock/images/05d1646fcc28420b.jpg",
+                cover: "public/images/05d1646fcc28420b.jpg",
                 reasons: ["全校最热，人工智能必读"]
             },
             {
                 bookId: 2009,
                 title: "Python编程：从入门到实践",
                 price: 58.00,
-                cover: "src/mock/images/v2-0769c039eb86a19e83fb17fd25485d77_r.jpg",
+                cover: "public/images/v2-0769c039eb86a19e83fb17fd25485d77_r.jpg",
                 reasons: ["本月销量第一，适合所有专业"]
             },
             {
                 bookId: 2003,
                 title: "计算机网络（第7版）",
                 price: 28.00,
-                cover: "src/mock/images/5abb54f5N4d11464e.jpg",
+                cover: "public/images/4a32bd868be2b935.jpg",
                 reasons: ["计网课必备，谢希仁经典"]
             }
         ]

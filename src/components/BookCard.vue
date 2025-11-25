@@ -1,6 +1,10 @@
 <template>
   <el-card class="book-card" shadow="hover" @click="goToDetail">
-    <img :src="book.cover || defaultCover" class="book-cover" />
+    <img
+        :src="book.cover ? book.cover.replace('public/', '/') : ''"
+        alt="图书封面"
+        class="book-cover"
+    >
     <div class="book-info">
       <div class="book-title">{{ book.title }}</div>
       <div class="book-author">{{ book.author }}</div>
